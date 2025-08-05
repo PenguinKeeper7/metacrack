@@ -169,9 +169,9 @@ namespace Metacrack
             foreach (var hashesPath in hashFileEntries)
             {
                 var fileName = Path.GetFileNameWithoutExtension(hashesPath);
-                var plainsPath = $"{currentDirectory}\\{fileName}.plains.txt"; //email:plain
-                var foundPath = $"{currentDirectory}\\{fileName}.found.txt"; //hash:plain
-                var leftPath = $"{currentDirectory}\\{IncrementFilename(fileName, "left")}.txt"; //hash
+                var plainsPath = Path.Combine(currentDirectory, $"{fileName}.plains.txt"); //email:plain
+                var foundPath = Path.Combine(currentDirectory, $"{fileName}.found.txt"); //hash:plain
+                var leftPath = Path.Combine(currentDirectory, $"{IncrementFilename(fileName, "left")}.txt"); //hash
 
                 //Check that there are no output files
                 if (!CheckForFiles(new string[] { plainsPath, foundPath, leftPath}))
@@ -317,14 +317,14 @@ namespace Metacrack
                     if (removeHashes.Count > 0)
                     {
                         var removeHashesFileName = Path.GetFileNameWithoutExtension(options.RemoveHashesPath);
-                        var removeHashesNewPath = $"{currentDirectory}\\{IncrementFilename(removeHashesFileName, "left")}.hash"; //hash
+                        var removeHashesNewPath = Path.Combine(currentDirectory, $"{IncrementFilename(removeHashesFileName, "left")}.hash"); //hash
 
                         File.AppendAllLines(removeHashesNewPath, removeHashes);
 
                         if (removeWords.Count > 0)
                         {
                             var removeWordsFileName = Path.GetFileNameWithoutExtension(options.RemoveWordsPath);
-                            var removeWordsNewPath = $"{currentDirectory}\\{IncrementFilename(removeWordsFileName, "left")}.word"; //word
+                            var removeWordsNewPath = Path.Combine(currentDirectory, $"{IncrementFilename(removeWordsFileName, "left")}.word"); //word
 
                             File.AppendAllLines(removeWordsNewPath, removeWords);
                         }

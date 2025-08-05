@@ -146,7 +146,7 @@ namespace Metacrack
                     }
 
                     var fileName = Path.GetFileNameWithoutExtension(filePath);
-                    var filePathName = $"{currentDirectory}\\{fileName}";
+                    var filePathName = Path.Combine(currentDirectory, fileName);
 
                     if (lines.Count > 0)
                     {

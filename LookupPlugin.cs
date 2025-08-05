@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -123,7 +124,7 @@ namespace Metacrack
                     //Create a version based on the file size, so that the hash and dict are bound together
                     var fileInfo = new FileInfo(filePath);
                     var fileName = Path.GetFileNameWithoutExtension(filePath);
-                    var filePathName = $"{currentDirectory}\\{fileName}";
+                    var filePathName = Path.Combine(currentDirectory, fileName);
 
                     var outputHashPath = $"{filePathName}{variation}.hash";
                     var outputWordPath = $"{filePathName}{variation}.word";
@@ -207,7 +208,7 @@ namespace Metacrack
                     foreach (var hex2 in Hex)
                     {
                         var key = $"{hex1}{hex2}";
-                        var sourcePath = $"{options.SourceFolder}\\{options.Prefix}-{key}.txt";
+                        var sourcePath = Path.Combine(options.SourceFolder, $"{options.Prefix}-{key}.txt");
                         DoLookup(key, currentDirectory, variation, sourcePath, lookups, options, rules);
 
                         bucketCount++;
@@ -360,7 +361,7 @@ namespace Metacrack
             {
                 if (lookup.Hashes.Count != lookup.Words.Count) throw new ApplicationException("Hashes count does not match wordlist count.");
 
-                var filePathName = $"{currentDirectory}\\{lookup.Filename}";
+                var filePathName = Path.Combine(currentDirectory, lookup.Filename);
 
                 if (options.Export)
                 {
@@ -452,7 +453,7 @@ namespace Metacrack
                 var key = hash[0].ToString("x2");
 
                 //Get the file name 
-                var path = $"{options.SourceFolder}\\xref\\{options.Prefix}-xref-{key}.txt";
+                var path = Path.Combine(options.SourceFolder, "xref", $"{options.Prefix}-xref-{key}.txt");
 
                 //Check if the indexes have been calculated
                 if (!_inferenceIndex.ContainsKey(key)) _inferenceIndex.Add(key, CalculateInferenceFileIndexes(key, path));

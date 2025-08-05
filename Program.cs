@@ -103,7 +103,7 @@ namespace Metacrack
         {
             // Navigate up to the solution root
             //var pluginFolder = $"{Directory.GetCurrentDirectory()}\\Plugins\\";
-            var pluginFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Plugins\\{name}\\";
+            var pluginFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins", name) + Path.DirectorySeparatorChar;
 
             if (!Directory.Exists(pluginFolder))
             {

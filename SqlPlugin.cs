@@ -55,7 +55,7 @@ namespace Metacrack
                 WriteMessage($"Processing {sqlPath}.");
 
                 var fileName = Path.GetFileNameWithoutExtension(sqlPath);
-                var filePathName = $"{currentDirectory}\\{fileName}";
+                var filePathName = Path.Combine(currentDirectory, fileName);
                 var outputPath = $"{filePathName}.parsed.txt";
                 var metapath = $"{filePathName}.meta.txt";
                 var debugPath = $"{filePathName}.debug.txt";

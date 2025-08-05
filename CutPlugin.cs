@@ -30,8 +30,8 @@
 
                 var fileInfo = new FileInfo(filePath);
                 var fileName = Path.GetFileNameWithoutExtension(filePath);
-                var filePathName = $"{currentDirectory}\\{fileName}";
-                var outputPath = $"{currentDirectory}\\{options.OutputPath}";
+                var filePathName = Path.Combine(currentDirectory, fileName);
+                var outputPath = Path.Combine(currentDirectory, options.OutputPath);
 
                 //Check that there are no output files
                 if (!CheckForFiles(new string[] { outputPath }))

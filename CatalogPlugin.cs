@@ -230,7 +230,7 @@ namespace Metacrack
                             {
                                 var key = $"{hex1}{hex2}";
 
-                                File.AppendAllLines($"{options.OutputFolder}\\{options.Prefix}-{key}.txt", buckets[key]);
+                                File.AppendAllLines(Path.Combine(options.OutputFolder,$"{options.Prefix}-{key}.txt"), buckets[key]);
                                 buckets[key].Clear();
                             }
                         }
@@ -253,7 +253,7 @@ namespace Metacrack
 
         private static async Task DoXReference(CatalogOptions options)
         {
-            var xrefFolder = $"{options.OutputFolder}\\xref\\";
+            var xrefFolder = $"{options.OutputFolder}{Path.DirectorySeparatorChar}xref{Path.DirectorySeparatorChar}";
             if (!Directory.Exists(xrefFolder))
             {
                 WriteMessage($"Creating new xref folder at {xrefFolder}");
@@ -283,7 +283,7 @@ namespace Metacrack
                 foreach (var hex2 in Hex)
                 {
                     var key = $"{hex1}{hex2}";
-                    var path = $"{options.OutputFolder}\\{options.Prefix}-{key}.txt";
+                    var path = Path.Combine(options.OutputFolder, $"{options.Prefix}-{key}.txt");
 
                     tasks.Add(CalculateXRef(path, options));
                 }
@@ -313,8 +313,8 @@ namespace Metacrack
                 foreach (var hex2 in Hex)
                 {
                     var key = $"{hex1}{hex2}";
-                    var mapPath = $"{options.OutputFolder}\\xref\\{options.Prefix}-xref-{key}.tmp";
-                    var outputPath = $"{options.OutputFolder}\\xref\\{options.Prefix}-xref-{key}.txt";
+                    var mapPath = Path.Combine(options.OutputFolder, "xref", $"{options.Prefix}-xref-{key}.tmp");
+                    var outputPath = Path.Combine(options.OutputFolder, "xref", $"{options.Prefix}-xref-{key}.txt");
 
                     tasks.Add(OptimiseFile(mapPath, outputPath));
                 }
@@ -492,7 +492,7 @@ namespace Metacrack
             //Loop through each de, lock and write out the lines
             foreach (var de in output)
             {
-                var path = $"{options.OutputFolder}\\xref\\{options.Prefix}-xref-{de.Key}.tmp";
+                var path = Path.Combine(options.OutputFolder, "xref", "${options.Prefix}-xref-{de.Key}.tmp");
 
                 //https://blog.cdemi.io/async-waiting-inside-c-sharp-locks/           
                 try

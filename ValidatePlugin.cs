@@ -71,7 +71,7 @@ namespace Metacrack
                 //Create a version based on the file size, so that the hash and dict are bound together
                 var fileInfo = new FileInfo(filePath);
                 var fileName = Path.GetFileNameWithoutExtension(filePath);
-                var filePathName = $"{currentDirectory}\\{fileName}";
+                var filePathName = Path.Combine(currentDirectory, fileName);
 
                 _outputValidPath =  $"{filePathName}.valid{fileInfo.Extension}";
                 _outputInvalidPath = $"{filePathName}.invalid{fileInfo.Extension}";
